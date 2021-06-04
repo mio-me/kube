@@ -11,16 +11,6 @@ K3S_TOKEN=${RANDOM}${RANDOM}${RANDOM} docker-compose up
 cp kubeconfig.yaml ~/.kube/config
 ```
 
-## Dashboard
-https://github.com/kubernetes/dashboard
-https://rancher.com/docs/k3s/latest/en/installation/kube-dashboard/
-```Bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
-kubectl create -f dashboard/dashboard.admin-user.yml -f dashboard/dashboard.admin-user-role.yml
-kubectl -n kubernetes-dashboard describe secret admin-user-token | grep '^token'
-kubectl proxy
-```
-
 ## Resources
 https://rancher.com/docs/k3s/latest/en/advanced/#running-k3d-k3s-in-docker-and-docker-compose
 https://github.com/rancher/k3d
