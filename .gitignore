@@ -1,1 +1,5 @@
 kubeconfig.yml
+data
+.gitsecret/keys/random_seed
+!*.secret
+config/metallb/config/memberlist.env

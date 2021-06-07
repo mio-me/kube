@@ -1,53 +1,55 @@
 version: '3'
 services:
-
   k3s-server:
     image: "rancher/k3s:${K3S_VERSION:-latest}"
     hostname: k3s-server
     command: server
     tmpfs:
-    - /run
-    - /var/run
+      - /run
+      - /var/run
     privileged: true
     environment:
-    - K3S_TOKEN=${K3S_TOKEN:?err}
-    - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yml
-    - K3S_KUBECONFIG_MODE=666
+      - K3S_TOKEN=${K3S_TOKEN:?err}
+      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yml
+      - K3S_KUBECONFIG_MODE=666
     volumes:
-    - k3s-server:/var/lib/rancher/k3s
-    # This is just so that we get the kubeconfig file out
-    - .:/output
+      - k3s-server:/var/lib/rancher/k3s
+      # This is just so that we get the kubeconfig file out
+      - .:/output
     ports:
-    - 6443:6443
+      - 6443:6443
     expose:
       - 80
       - 443
     depends_on:
-    - nginx
+      - nginx
   k3s-agent:
     image: "rancher/k3s:${K3S_VERSION:-latest}"
     hostname: k3s-agent
     tmpfs:
-    - /run
-    - /var/run
+      - /run
+      - /var/run
+    volumes:
+      - ./data:/data
     privileged: true
     environment:
-    - K3S_URL=https://k3s-server:6443
-    - K3S_TOKEN=${K3S_TOKEN:?err}
+      - K3S_URL=https://k3s-server:6443
+      - K3S_TOKEN=${K3S_TOKEN:?err}
     depends_on:
-    - nginx
+      - nginx
     expose:
       - 80
       - 443
       - 6443
+    ports:
+      - 9700:9700
   nginx:
     build:
       context: nginx
-      
     hostname: nginx
     ports:
-    - 80:80
-    - 443:443
+      - 80:80
+      - 443:443
     restart: unless-stopped
 
 volumes:
