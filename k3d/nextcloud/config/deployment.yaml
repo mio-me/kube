@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+        - name: nextcloud
+          image: linuxserver/nextcloud
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          envFrom:
+            - configMapRef:
+                name: nextcloud-env
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /data
+              subPath: data
+            - name: nextcloud-config
+              mountPath: /config
+              subPath: config
+      volumes:
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-data
+        - name: nextcloud-config
+          persistentVolumeClaim:
+            claimName: nextcloud-config
