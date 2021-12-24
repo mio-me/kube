@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 
 metadata:
-  name: nginx
+  name: static-hosting-example
   labels:
-    app: nginx
+    app: static-hosting-example
 
 spec:
   selector:
-    app: nginx
+    app: static-hosting-example
   ports:
     - port: 80
       protocol: TCP

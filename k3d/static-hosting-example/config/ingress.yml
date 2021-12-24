@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx
+  name: static-hosting-example
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - http:
       paths:
-      - path: /nginx
+      - path: /web
         pathType: Prefix
         backend:
           service:
-            name: nginx
+            name: static-hosting-example
             port:
               number: 80

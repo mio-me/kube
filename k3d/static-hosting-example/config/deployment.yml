@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: static-hosting-example
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: static-hosting-example
   replicas: 1
   template:
     metadata:
       labels:
-        app: nginx
+        app: static-hosting-example
     spec:
       containers:
-        - name: nginx
+        - name: static-hosting-example
           image: ghcr.io/mio-me/nginx-example:1.2.0
           ports:
             - containerPort: 80
