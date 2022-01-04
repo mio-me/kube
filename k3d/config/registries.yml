@@ -3,8 +3,3 @@ mirrors:
     endpoint:
       - https://ghcr.io
 
-configs:
-  ghcr.io:
-    auth:
-      username: mio-me
-      password: "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"
