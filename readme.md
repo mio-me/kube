@@ -41,7 +41,7 @@ helm install rancher rancher-stable/rancher \
 
 ## MetalLB
 https://metallb.universe.tf/installation/
-````
+```
 kustomize build config/metallb | kubectl apply -f -
 ```
 
